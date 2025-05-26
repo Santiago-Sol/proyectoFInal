@@ -12,7 +12,7 @@ defmodule NodoCliente do
     inicio()
     ciclo_chat()
   end
-
+  # Inicia el cliente, solicitando al usuario si quiere ingresar o registrar un nuevo usuario
   def inicio() do
   n = IO.gets("Presiona 1 para ingresar y 2 para registrar un nuevo usuario: ") |> String.trim()
   cond do
@@ -23,7 +23,7 @@ defmodule NodoCliente do
       inicio()
   end
 end
-
+  # Solicita al usuario registrar un nuevo usuario
   def registrar_usuario() do
     IO.puts("Registro de nuevo usuario")
     username = IO.gets("Ingrese Usuario: ") |> String.trim()

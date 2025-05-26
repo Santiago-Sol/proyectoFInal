@@ -2,6 +2,7 @@
 
 defmodule NodoServidor do
   @nombre_proceso :recividor
+  #Proceso principal del servidor
   def main() do
     DBU.crearBaseYTablas()
     IO.puts("Iniciando nodo secundario con gestión de salas...")
@@ -11,7 +12,7 @@ defmodule NodoServidor do
     IO.inspect(salas)
     recividor(usuarios, [], salas, [])
   end
-
+  #Recibe mensajes de los clientes y maneja las solicitudes
   def recividor(usuarios, clientes, salas, pantallas) do
     receive do
       {pid, {:login, user, pass}} ->
@@ -129,25 +130,25 @@ defmodule NodoServidor do
 
     end
   end
-
+  #Actualiza la lista de pids de los clientes en una sala
   defp actualizar_sala(salas, sala, pid) do
     Map.update(salas, sala, [pid], fn lista -> Enum.uniq([pid | lista]) end)
   end
-
+  #Obtiene la sala y el usuario de un cliente dado su pid
   defp obtener_sala(pid, clientes) do
     case Enum.find(clientes, fn {p, _, _} -> p == pid end) do
       {_, _, sala} -> sala
       _ -> ""
     end
   end
-
+  #Obtiene el usuario de un cliente dado su pid
   defp obtener_usuario(pid, clientes) do
     case Enum.find(clientes, fn {p, _, _} -> p == pid end) do
       {_, usuario, _} -> usuario
       _ -> "Desconocido"
     end
   end
-
+  #Verifica si un usuario es válido
   defp autenticar(user, pass, usuarios) do
     IO.inspect(usuarios)
     case Enum.find(usuarios, fn u -> u.username == user and u.contraseña == pass end) do
@@ -155,7 +156,7 @@ defmodule NodoServidor do
       u   -> {:ok, u}
     end
   end
-
+  
   defp cargar_usuarios do
     Usuario.empaquetar_usuarios(DBU.cargar_usuarios())
 

@@ -1,5 +1,6 @@
 defmodule Miembro do
   defstruct [id: nil, sala: 0, miembro: 0]
+  #Función para crear un nuevo miembro con id, sala y miembro
   def crear(id ,sala , miembro) do
     %Miembro{
       id: id,

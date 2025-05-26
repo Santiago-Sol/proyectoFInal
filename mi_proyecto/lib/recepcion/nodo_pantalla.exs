@@ -1,5 +1,5 @@
 defmodule NodoPantalla do
-  @servidor :"nodoservidor@192.168.20.39"
+  @servidor :"nodoservidor@127.0.0.1"
   def main do
     Node.connect(@servidor)
     send({:recividor, @servidor}, {self(), :registrar_pantalla})
