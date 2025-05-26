@@ -4,7 +4,7 @@ defmodule NodoServidor do
   @nombre_proceso :recividor
   #Proceso principal del servidor
   def main() do
-    DBU.crearBaseYTablas()
+    #DBU.crearBaseYTablas()
     IO.puts("Iniciando nodo secundario con gestión de salas...")
     Process.register(self(), @nombre_proceso)
     usuarios = cargar_usuarios()
@@ -156,7 +156,7 @@ defmodule NodoServidor do
       u   -> {:ok, u}
     end
   end
-  
+
   defp cargar_usuarios do
     Usuario.empaquetar_usuarios(DBU.cargar_usuarios())
 

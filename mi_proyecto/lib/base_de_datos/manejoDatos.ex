@@ -14,8 +14,6 @@ defmodule DBU do
 
   end
 
-  #agregar --------------------------------------------------------------------------------------------------------------------------------
-
   #agrega usuario con todo
   def agregarUsuario(%Usuario{} = usuario) do
     query = "INSERT INTO usuarios (username, password, estado) VALUES (?, ?, ?);"
@@ -58,7 +56,6 @@ defmodule DBU do
     mapa
   end
 
-  #obtener-----------------------------------------------------------------------------------------------------------------------------------
   def cargarMensajes() do
     query = "SELECT * FROM registroMensages;"
     data = []
@@ -69,9 +66,7 @@ defmodule DBU do
     query = "SELECT * FROM usuarios;"
     queryExc(query, nil, :select)
   end
-
-
-  #esta bien
+  #
   def obtenerUsuario(username, password)do
     query = "SELECT * FROM usuarios WHERE username = ? AND password = ?;"
     data = [username, password]
@@ -161,7 +156,7 @@ defmodule DBU do
     queryExc(query, nil, :exec)
   end
 
-  #executer magico, basicamente el motor xD --------------------------------------------------------------------------------------------------------
+  # Función para ejecutar consultas SQL
   defp queryExc(query, param, mode)do
     with {:ok, db} <- Sqlite3.open(@db_path),
          {:ok, stmt} <- Sqlite3.prepare(db, query),
